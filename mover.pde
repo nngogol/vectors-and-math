@@ -13,7 +13,10 @@ class Mover{
   
   void applyForce(PVector c){
   
-    acc.add(c);
+    
+    acc.add(c); // not acc=c , 
+    //             coz it will not accumulate all given
+    //             vectors in acc variable
   }
   
   void view(){
