@@ -1,32 +1,62 @@
-PVector q;
 Mover m;
+PVector gravity;
 
 void setup(){
-  size(600,400);
-  q = new PVector(300,400);
+  
+  size(900,600);
   m = new Mover();
-}
-
-void mouseClicked(){
-  //q.add(new PVector(mouseX,mouseY));
-  q.sub(new PVector(mouseX,mouseY));
-  //q.mult(2);
+  textSize(30);
+  gravity = new PVector(0,0.5);
+  
 }
 
 void draw(){
   background(200);
   
-  //textSize(40);
-  //text(random(-1,1),100,50);
-  //random - рандом
-  //translate(width/2, height/2);
+  mouseClick();
   
 
-  
+  m.applyForce(gravity);
+
   m.update();
-  //m.edges();
   m.view();
+  line(mouseX, mouseY, pmouseX, pmouseY);
   
-  line(0,0,mouseX,mouseY);
-  //ellipse(q.x,q.y,16,16);
+}
+
+
+
+
+
+
+
+
+
+void drawText(String text){
+    stroke(255,0,0,180);
+    strokeWeight(6);
+    noFill();
+    text(text, 20, 60);
+}
+
+
+void mouseClick(){
+  if(mousePressed){
+    
+    //  Left Mouse
+    if (mouseButton == LEFT) {
+    
+    drawText("left");
+    m.applyForce(new PVector(-0.2,0));
+        
+  
+    //  Right- Mouse
+    } else if (mouseButton == RIGHT) {
+      drawText("right");
+      m.applyForce(new PVector(0.2,0));
+    }
+    
+    
+  } 
+  
 }
