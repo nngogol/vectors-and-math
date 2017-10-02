@@ -1,5 +1,5 @@
 Mover mover1;
-Mover[] movers;
+ArrayList<Mover> movers;
 PVector gravity;
 float wind = 1.2;
 
@@ -7,9 +7,9 @@ void setup(){
   
   size(900,600);
   mover1 = new Mover();
-  movers = new Mover[30];
+  movers = new ArrayList<Mover>();
   for(int i = 0; i<30; i++){
-    movers[i] = new Mover((i+5)*1.5,30+i*5, 70);
+    movers.add(new Mover((i+5)*2.5,30+i*5, 70));
   }
   textSize(30);
   gravity = new PVector(0,1.5);
@@ -55,17 +55,19 @@ void drawText(String text){
 void mouseClick_wind(Mover someMover){
   if(mousePressed){
     
-    //  Left Mouse
     if (mouseButton == LEFT) {
+      drawText("left");
+      someMover.applyForce(new PVector(-wind,0));
+    }
     
-    drawText("left");
-    someMover.applyForce(new PVector(-wind,0));
-        
-  
-    //  Right- Mouse
-    } else if (mouseButton == RIGHT) {
+    if (mouseButton == RIGHT) {
       drawText("right");
       someMover.applyForce(new PVector(wind,0));
+    }
+    
+    if(mouseButton == CENTER){
+      drawText("add");
+      movers.add(new Mover(random(10,15),mouseX, mouseY));
     }
     
     
