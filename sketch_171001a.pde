@@ -13,10 +13,11 @@ void setup(){
 void draw(){
   background(200);
   
-  mouseClick();
   
-
+  mouseClick();
   m.applyForce(gravity);
+
+
 
   m.update();
   m.view();
