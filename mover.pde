@@ -3,18 +3,26 @@ class Mover{
   PVector pos;
   PVector vel;
   PVector acc;
+  float mass;
   
   Mover(){
     pos = new PVector(width/2, height/2);
     vel = new PVector(0,0);
     acc = new PVector(0.2,0.1);
-    
+    mass = 2;
+  }
+  
+   Mover(float m, float x , float y){
+    pos = new PVector(x,y);
+    vel = new PVector(0,0);
+    acc = new PVector(0.2,0.1);
+    mass = m;
   }
   
   void applyForce(PVector c){
-  
     
-    acc.add(c); // not acc=c , 
+    
+    acc.add(PVector.div(c,mass)); // not acc=c , 
     //             coz it will not accumulate all given
     //             vectors in acc variable
   }
@@ -22,8 +30,8 @@ class Mover{
   void view(){
   
       fill(20,155,150,240);
-      strokeWeight(1);
-      stroke(255,0,0);
+      strokeWeight(mass*0.1);
+      stroke(255,0,0,mass*10);
       ellipse(pos.x,pos.y,36,36);
   }
   
@@ -31,7 +39,12 @@ class Mover{
     
       vel.add(acc);
       pos.add(vel);
+      // после того, как позиция изменится
+      // нам нужно новое значение силы,
+      // т.к. она(сила аля вектор) могла изменится 
       acc.mult(0);
+      
+      // края
       checkEdges();
       
   }
