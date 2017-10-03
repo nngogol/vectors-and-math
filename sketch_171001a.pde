@@ -1,7 +1,7 @@
 Mover mover1;
 ArrayList<Mover> movers;
 PVector gravity;
-float wind = 1.2;
+float wind = 2.2;
 
 void setup(){
   
@@ -9,10 +9,9 @@ void setup(){
   mover1 = new Mover();
   movers = new ArrayList<Mover>();
   for(int i = 0; i<30; i++){
-    movers.add(new Mover((i+5)*2.5,30+i*5, 70));
+    movers.add(new Mover((i+5)*6.5,30+i*5, 40*i*0.2));
   }
   textSize(30);
-  gravity = new PVector(0,1.5);
   
 }
 
@@ -21,17 +20,17 @@ void draw(){
   
   line(mouseX, mouseY, pmouseX, pmouseY);
   
-  for(Mover m : movers){
   
-    mouseClick_wind(m);
-    m.applyForce(gravity);
+  for(int i = 0; i<movers.size(); i++){
+    mouseClick_wind(movers.get(i));
+    PVector gravity = new PVector(0, 0.9*movers.get(i).mass);
+    movers.get(i).applyForce(gravity);
 
 
 
-    m.update();
-    m.view();
+    movers.get(i).update();
+    movers.get(i).view();
   }
-  
   
   
 }
@@ -51,6 +50,11 @@ void drawText(String text){
     text(text, 20, 60);
 }
 
+void mouseClicked(){
+  drawText("add");
+  movers.add(new Mover(random(24,45),mouseX, mouseY));
+  
+}
 
 void mouseClick_wind(Mover someMover){
   if(mousePressed){
@@ -64,12 +68,6 @@ void mouseClick_wind(Mover someMover){
       drawText("right");
       someMover.applyForce(new PVector(wind,0));
     }
-    
-    if(mouseButton == CENTER){
-      drawText("add");
-      movers.add(new Mover(random(10,15),mouseX, mouseY));
-    }
-    
     
   } 
   

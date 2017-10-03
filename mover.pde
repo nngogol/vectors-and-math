@@ -29,9 +29,9 @@ class Mover{
   
   void view(){
   
-      fill(20,155,150,240);
-      strokeWeight(mass*0.1);
-      stroke(255,0,0,mass*10);
+      fill(0,0,15,abs(mass)*3);
+      strokeWeight(4);
+      stroke(255);
       ellipse(pos.x,pos.y,36,36);
   }
   
